@@ -5,10 +5,10 @@ import { Report } from 'notiflix/build/notiflix-report-aio';
 export const ContactList = ({ contacts, deleteContact, filter}) => {
 const visibleContact = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+    );
     return (
-    <>
-        {contacts.length === 0 ? (
+        <>
+            {contacts.length === 0 ? (
             Report.info('Phonebook Info', 'Contact book is empty!',
               'Okay',
             )) : (
