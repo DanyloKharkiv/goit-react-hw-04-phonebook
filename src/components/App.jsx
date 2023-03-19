@@ -40,14 +40,14 @@ export const App = () => {
     }
 
     setContacts(prevState => [...prevState, contact]);
-    localStorage.setItem('contacts', JSON.stringify([...prevState, contact]));
+    localStorage.setItem('contacts', JSON.stringify([...contacts, contact]));
     form.reset();
   };
 
 
   const deleteContact = id => {
     setContacts(prevState => prevState.filter(contact => contact.id !== id));
-    localStorage.setItem('contacts', JSON.stringify(prevState.filter(contact => contact.id !== id)));
+    localStorage.setItem('contacts', JSON.stringify(contacts.filter(contact => contact.id !== id)));
   };
 
 
