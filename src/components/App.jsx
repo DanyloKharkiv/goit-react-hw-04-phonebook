@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { nanoid } from 'nanoid';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 
@@ -10,10 +10,13 @@ import { Filter } from "./Filter/Filter";
 export const App = () => {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
+  const firstLoad = useRef(false);
 
   useEffect(() => {
     const contacts = localStorage.getItem('contacts');
-
+    if (!firstLoad.current) {
+      firstLoad.current = true;
+    }
     if (contacts) {
       setContacts(JSON.parse(contacts));
     }
@@ -62,7 +65,7 @@ export const App = () => {
       </Section>
       <Section title="Contacts">
           <Filter value={filter} inputFilter={inputFilter} />
-        <ContactList contacts={contacts} deleteContact={deleteContact} filter={filter} />
+        <ContactList firstLoad={firstLoad} contacts={contacts} deleteContact={deleteContact} filter={filter} />
       </Section>
     </>
   );

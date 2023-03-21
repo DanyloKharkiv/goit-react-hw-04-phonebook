@@ -2,16 +2,13 @@ import PropTypes from "prop-types";
 import style from './ContactList.module.css';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 
-export const ContactList = ({ contacts, deleteContact, filter}) => {
+export const ContactList = ({ firstLoad, contacts, deleteContact, filter }) => {
 const visibleContact = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
     );
     return (
         <>
-            {contacts.length === 0 ? (
-            Report.info('Phonebook Info', 'Contact book is empty!',
-              'Okay',
-            )) : (
+            {contacts.length > 0 ? (
                 <ul className={style.list}>
                         {visibleContact.map(({id, name, number}) => (
                         <li className={style.item} key={id}>
@@ -22,7 +19,10 @@ const visibleContact = contacts.filter(contact =>
                         </li>
                     ))}
                 </ul>
-            )}
+            ) :(firstLoad.current && (
+            Report.info('Phonebook Info', 'Contact book is empty!',
+              'Okay',
+            )))}
     </>
     )    
 }
